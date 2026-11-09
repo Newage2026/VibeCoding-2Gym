@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>藍波健身房｜讓每一次訓練，都更靠近理想的自己</title>
+<style>
+:root {
+  --navy: #071b35;
+  --blue: #087cf0;
+  --cyan: #35d4e8;
+  --ink: #15263d;
+  --muted: #64748b;
+  --pale: #f3f8ff;
+  --white: #fff;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: "Noto Sans TC", "Microsoft JhengHei", sans-serif; color: var(--ink); line-height: 1.7; }
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; }
+.container { width: min(1120px, 90%); margin: auto; }
+header { position: sticky; top: 0; z-index: 10; background: rgba(7,27,53,.96); color: white; backdrop-filter: blur(12px); }
+.nav { display:flex; align-items:center; justify-content:space-between; gap:24px; min-height:76px; }
+.logo { font-size:1.35rem; font-weight:900; letter-spacing:1px; white-space:nowrap; }
+.logo span { color:var(--cyan); }
+nav { display:flex; gap:24px; align-items:center; font-size:.95rem; }
+nav a:hover { color:var(--cyan); }
+.menu-toggle { display:none; background:none; color:white; border:1px solid #52708f; border-radius:8px; padding:6px 10px; }
+.btn { display:inline-block; border:0; border-radius:999px; padding:12px 23px; font-weight:800; cursor:pointer; transition:transform .2s, background .2s; }
+.btn:hover { transform:translateY(-2px); }
+.btn-primary { color:white; background:linear-gradient(110deg,var(--blue),#05aee8); box-shadow:0 10px 25px #087cf033; }
+.btn-light { color:var(--navy); background:white; }
+.hero { color:white; background:radial-gradient(circle at 75% 25%,#1265a9 0,#0b3159 28%,var(--navy) 68%); overflow:hidden; }
+.hero-grid { display:grid; grid-template-columns:1.05fr .95fr; gap:42px; align-items:center; min-height:610px; padding:70px 0; }
+.eyebrow { display:inline-flex; align-items:center; gap:8px; color:var(--cyan); font-size:.86rem; font-weight:900; letter-spacing:2px; text-transform:uppercase; }
+.eyebrow:before { content:""; width:25px; height:2px; background:currentColor; }
+h1 { font-size:clamp(2.5rem,5vw,4.6rem); line-height:1.13; margin:18px 0; letter-spacing:-1px; }
+h1 em { font-style:normal; color:var(--cyan); }
+.hero p { max-width:530px; color:#d3e2f2; font-size:1.08rem; }
+.hero-actions { display:flex; gap:14px; flex-wrap:wrap; margin-top:28px; }
+.hero-note { display:flex; gap:22px; flex-wrap:wrap; margin-top:35px; color:#c3d7eb; font-size:.9rem; }
+.hero-note strong { color:white; }
+.hero-art { min-height:390px; position:relative; display:grid; place-items:center; }
+.orbit { position:absolute; width:min(410px,90%); aspect-ratio:1; border:1px solid #4dd9ee66; border-radius:50%; }
+.orbit:before,.orbit:after { content:""; position:absolute; inset:25px; border:1px solid #4dd9ee38; border-radius:50%; }
+.orbit:after { inset:55px; }
+.gym-card { position:relative; z-index:1; width:min(370px,92%); aspect-ratio:4/5; border-radius:28px; overflow:hidden; padding:25px; display:flex; flex-direction:column; justify-content:space-between; background:linear-gradient(155deg,#236b9a,#102d4c 55%,#071523); box-shadow:0 30px 70px #0005; }
+.gym-card:before { content:""; position:absolute; width:230px; height:230px; border:24px solid #35d4e833; border-radius:50%; top:70px; right:-45px; }
+.gym-card:after { content:""; position:absolute; width:150px; height:290px; background:linear-gradient(90deg,#05172a,#1d4765); transform:skew(-18deg); bottom:-80px; left:70px; box-shadow:65px 0 #0a2138,130px 0 #173b58; }
+.card-top,.card-bottom { position:relative; z-index:2; }
+.card-top { display:flex; justify-content:space-between; color:#d8f5ff; font-size:.85rem; }
+.card-symbol { position:relative; z-index:2; font-size:5rem; color:var(--cyan); text-shadow:0 0 35px #35d4e888; text-align:center; }
+.card-bottom strong { display:block; font-size:1.5rem; }
+.card-bottom small { color:#b9d6e9; }
+section { padding:88px 0; }
+.section-head { max-width:650px; margin:0 auto 42px; text-align:center; }
+.section-head .eyebrow { color:var(--blue); }
+h2 { font-size:clamp(1.9rem,3.4vw,2.8rem); line-height:1.25; margin:12px 0; color:var(--navy); }
+.section-head p { color:var(--muted); margin:0; }
+.features { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.feature,.coach,.plan,.facility { border:1px solid #e1eaf5; border-radius:20px; padding:26px; background:white; box-shadow:0 10px 35px #0b315908; }
+.feature-icon { display:grid; place-items:center; width:52px; height:52px; border-radius:15px; background:#e7f5ff; font-size:1.5rem; margin-bottom:18px; }
+.feature h3,.coach h3,.plan h3,.facility h3 { margin:0 0 8px; color:var(--navy); }
+.feature p,.coach p,.facility p { margin:0; color:var(--muted); font-size:.95rem; }
+.soft { background:var(--pale); }
+.coaches { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.coach { padding:0; overflow:hidden; }
+.coach-visual { min-height:175px; display:grid; place-items:center; background:linear-gradient(135deg,#d9f3ff,#a6d9f5); font-size:4.5rem; }
+.coach:nth-child(2) .coach-visual { background:linear-gradient(135deg,#e3e7ff,#b9c9ff); }
+.coach:nth-child(3) .coach-visual { background:linear-gradient(135deg,#d9f8ee,#9ee5d0); }
+.coach-content { padding:23px; }
+.tags { display:flex; flex-wrap:wrap; gap:7px; margin-top:15px; }
+.tag { font-size:.78rem; padding:4px 10px; border-radius:999px; color:#0755a3; background:#e7f4ff; }
+.plans { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; align-items:stretch; }
+.plan { position:relative; }
+.plan.featured { border:2px solid var(--blue); box-shadow:0 15px 45px #087cf01c; }
+.plan-label { display:inline-block; background:#e5f4ff; color:#0865bd; border-radius:999px; padding:4px 10px; font-size:.78rem; font-weight:800; }
+.price { font-size:2.35rem; font-weight:900; color:var(--navy); margin:12px 0; }
+.price small { font-size:.85rem; color:var(--muted); font-weight:500; }
+.plan ul { padding-left:20px; color:var(--muted); min-height:125px; }
+.plan li { margin:6px 0; }
+.plan .btn { width:100%; text-align:center; }
+.steps { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; counter-reset:step; }
+.step { padding:22px; background:white; border-radius:18px; border:1px solid #dfeaf5; }
+.step:before { counter-increment:step; content:"0" counter(step); display:block; color:var(--blue); font-weight:900; font-size:1.8rem; margin-bottom:12px; }
+.step h3 { margin:0 0 6px; }
+.step p { margin:0; color:var(--muted); font-size:.92rem; }
+.promise { margin-top:25px; padding:18px 22px; background:#e7f8f7; color:#155e63; border-radius:14px; text-align:center; }
+.facilities { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+.facility { padding:22px; }
+.facility .feature-icon { margin-bottom:13px; }
+.policy-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+.policy { background:white; border:1px solid #e1eaf5; border-radius:18px; padding:25px; }
+.policy h3 { margin-top:0; color:var(--navy); }
+.policy p,.policy li { color:var(--muted); }
+.faq { margin-top:24px; }
+details { background:white; border:1px solid #e1eaf5; padding:17px 20px; border-radius:12px; margin:10px 0; }
+summary { cursor:pointer; font-weight:800; color:var(--navy); }
+details p { color:var(--muted); margin-bottom:0; }
+.cta { color:white; background:linear-gradient(120deg,#0756a7,#071b35); text-align:center; }
+.cta h2 { color:white; }
+.cta p { color:#d4e4f5; }
+.cta .eyebrow { justify-content:center; }
+footer { background:#041225; color:#a9bfd5; padding:28px 0; font-size:.9rem; }
+.footer-row { display:flex; justify-content:space-between; align-items:center; gap:18px; flex-wrap:wrap; }
+footer strong { color:white; }
+.modal-backdrop { display:none; position:fixed; inset:0; z-index:30; background:#06162bd9; padding:20px; align-items:center; justify-content:center; }
+.modal-backdrop.open { display:flex; }
+.modal { width:min(520px,100%); background:white; border-radius:22px; padding:28px; max-height:90vh; overflow:auto; }
+.modal-head { display:flex; justify-content:space-between; align-items:center; }
+.modal-head h2 { font-size:1.6rem; margin:0; }
+.close { border:0; background:#eef4fb; border-radius:50%; width:38px; height:38px; cursor:pointer; font-size:1.2rem; }
+form { display:grid; gap:13px; margin-top:18px; }
+form label { font-weight:700; font-size:.9rem; }
+form input,form select,form textarea { width:100%; border:1px solid #cbd8e6; border-radius:10px; padding:11px 12px; margin-top:5px; }
+.form-note { color:var(--muted); font-size:.82rem; margin:0; }
+#formMessage { display:none; background:#e7f8f0; color:#166534; border-radius:10px; padding:12px; }
+@media(max-width:850px) {
+ nav { gap:13px; font-size:.85rem; }
+ .hero-grid { grid-template-columns:1fr; text-align:center; padding:60px 0; }
+ .hero p { margin-left:auto; margin-right:auto; }
+ .hero-actions,.hero-note { justify-content:center; }
+ .hero-art { min-height:350px; }
+ .features,.coaches,.plans { grid-template-columns:1fr 1fr; }
+ .steps,.facilities { grid-template-columns:1fr 1fr; }
+}
+@media(max-width:620px) {
+ .nav { min-height:66px; flex-wrap:wrap; padding:12px 0; }
+ .menu-toggle { display:block; }
+ nav { display:none; width:100%; flex-direction:column; align-items:stretch; padding:8px 0 12px; }
+ nav.open { display:flex; }
+ nav a { padding:7px 0; }
+ nav .btn { text-align:center; }
+ section { padding:64px 0; }
+ .features,.coaches,.plans,.steps,.facilities,.policy-grid { grid-template-columns:1fr; }
+ .hero-grid { gap:15px; }
+ .hero-art { min-height:310px; }
+ .gym-card { width:270px; }
+ .card-symbol { font-size:4rem; }
+ .plan ul { min-height:0; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <a class="logo" href="#home">🌊 藍波<span>健身房</span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="開啟導覽選單">☰ 選單</button>
+    <nav id="mainNav">
+      <a href="#coaches">教練團隊</a><a href="#plans">課程方案</a><a href="#trial">體驗流程</a><a href="#facilities">空間設備</a><a href="#policy">合約與退費</a>
+      <button class="btn btn-primary" data-book>預約免費諮詢</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow">YOUR FITNESS, YOUR WAVE</span>
+      <h1>找到你的節奏，<br><em>練出自己的力量。</em></h1>
+      <p>歡迎來到藍波健身房。從第一次接觸器材，到建立穩定的訓練習慣，我們陪你一步一步，讓運動成為生活中自在又有成就感的事。</p>
+      <div class="hero-actions"><button class="btn btn-primary" data-book>預約首次體驗　→</button><a class="btn btn-light" href="#plans">看看課程方案</a></div>
+      <div class="hero-note"><span>✓ <strong>新手友善</strong>，循序漸進</span><span>✓ <strong>專業教練</strong>，清楚指導</span><span>✓ <strong>透明方案</strong>，安心選擇</span></div>
+    </div>
+    <div class="hero-art" aria-label="藍波健身房視覺插圖">
+      <div class="orbit"></div>
+      <div class="gym-card">
+        <div class="card-top"><span>BLUE WAVE FITNESS</span><span>EST. 2026</span></div>
+        <div class="card-symbol">↗</div>
+        <div class="card-bottom"><strong>MOVE WITH PURPOSE.</strong><small>每一次練習，都是新的開始。</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head"><span class="eyebrow">WHY BLUE WAVE</span><h2>你的健身旅程，從安心開始</h2><p>不需要一開始就很厲害，只要願意踏出第一步。我們會協助你找到適合自己的運動方式。</p></div>
+    <div class="features">
+      <article class="feature"><div class="feature-icon">🧭</div><h3>清楚的訓練方向</h3><p>先了解你的目標與經驗，再一起規劃適合的訓練節奏，不盲目跟風。</p></article>
+      <article class="feature"><div class="feature-icon">🤝</div><h3>友善的教練陪伴</h3><p>重視動作、安全與溝通，讓初學者也能自在提問、放心練習。</p></article>
+      <article class="feature"><div class="feature-icon">💎</div><h3>透明的收費資訊</h3><p>課程內容、價格與合約規則清楚說明，讓你充分了解後再決定。</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="soft" id="coaches">
+  <div class="container">
+    <div class="section-head"><span class="eyebrow">MEET THE COACHES</span><h2>找到適合你的教練</h2><p>每位教練都有不同專長。以下為網站示範資料，正式使用前請替換成實際教練資訊。</p></div>
+    <div class="coaches">
+      <article class="coach"><div class="coach-visual">🏋️‍♂️</div><div class="coach-content"><h3>陳柏宇教練</h3><p>專長：肌力訓練、基礎動作教學</p><div class="tags"><span class="tag">初學者入門</span><span class="tag">肌力建立</span><span class="tag">教練證照待補</span></div></div></article>
+      <article class="coach"><div class="coach-visual">🤸‍♀️</div><div class="coach-content"><h3>林雅婷教練</h3><p>專長：體能訓練、活動度與伸展</p><div class="tags"><span class="tag">活動度訓練</span><span class="tag">體能提升</span><span class="tag">教練證照待補</span></div></div></article>
+      <article class="coach"><div class="coach-visual">💪</div><div class="coach-content"><h3>王子謙教練</h3><p>專長：重量訓練、個人化課表</p><div class="tags"><span class="tag">重量訓練</span><span class="tag">目標規劃</span><span class="tag">教練證照待補</span></div></div></article>
+    </div>
+  </div>
+</section>
+
+<section id="plans">
+  <div class="container">
+    <div class="section-head"><span class="eyebrow">TRAINING PLANS</span><h2>選擇你的訓練方式</h2><p>依照你的時間、經驗與目標，挑選最適合的方案。以下價格為網站示範，實際收費請以店內公告與正式合約為準。</p></div>
+    <div class="plans">
+      <article class="plan"><span class="plan-label">自由訓練</span><h3>月繳會員</h3><div class="price">NT$1,280 <small>/ 月起</small></div><p>適合想先建立運動習慣的人。</p><ul><li>健身區自由使用</li><li>基本器材操作說明</li><li>每月一次訓練方向諮詢</li><li>無需一次預付全年費用</li></ul><button class="btn btn-primary" data-book data-plan="月繳會員">詢問月繳方案</button></article>
+      <article class="plan featured"><span class="plan-label">人氣推薦</span><h3>私人教練課</h3><div class="price">NT$1,600 <small>/ 堂起</small></div><p>適合希望獲得個別指導的人。</p><ul><li>一對一動作指導</li><li>依個人目標調整內容</li><li>訓練進度定期回顧</li><li>課程堂數與期限事先說明</li></ul><button class="btn btn-primary" data-book data-plan="私人教練課">預約教練諮詢</button></article>
+      <article class="plan"><span class="plan-label">固定訓練</span><h3>年繳會員</h3><div class="price">NT$12,800 <small>/ 年起</small></div><p>適合已安排長期運動計畫的人。</p><ul><li>會員期間自由訓練</li><li>定期設備與安全提醒</li><li>會員活動優先通知</li><li>合約、終止與退費規則明列</li></ul><button class="btn btn-primary" data-book data-plan="年繳會員">了解年繳方案</button></article>
+    </div>
+  </div>
+</section>
+
+<section class="soft" id="trial">
+  <div class="container">
+    <div class="section-head"><span class="eyebrow">YOUR FIRST VISIT</span><h2>第一次來，也能很自在</h2><p>體驗流程簡單清楚，不用擔心不知道從哪裡開始。</p></div>
+    <div class="steps">
+      <article class="step"><h3>線上預約</h3><p>留下聯絡方式、方便時段與訓練目標。</p></article>
+      <article class="step"><h3>抵達與需求了解</h3><p>由現場人員介紹環境，了解你的運動經驗。</p></article>
+      <article class="step"><h3>器材與安全介紹</h3><p>認識基本設備、使用方式與場館注意事項。</p></article>
+      <article class="step"><h3>體驗後再決定</h3><p>說明適合的方案與費用，由你評估是否加入。</p></article>
+    </div>
+    <div class="promise">🌊 <strong>藍波承諾：</strong>體驗過程不強迫推銷，所有價格與合約條款都會事先說明。</div>
+  </div>
+</section>
+
+<section id="facilities">
+  <div class="container">
+    <div class="section-head"><span class="eyebrow">FACILITIES</span><h2>讓每次訓練都更順手</h2><p>依實際場館設備與服務調整本區內容。</p></div>
+    <div class="facilities">
+      <article class="facility"><div class="feature-icon">🏋️</div><h3>重量訓練區</h3><p>自由重量與肌力訓練設備，協助建立動作基礎。</p></article>
+      <article class="facility"><div class="feature-icon">🚴</div><h3>有氧訓練區</h3><p>依自己的節奏安排有氧運動與體能練習。</p></article>
+      <article class="facility"><div class="feature-icon">🚿</div><h3>更衣與淋浴</h3><p>提供更衣空間；開放項目與使用規範請洽現場。</p></article>
+      <article class="facility"><div class="feature-icon">🫶</div><h3>友善訓練環境</h3><p>重視尊重與隱私，讓不同經驗的會員都能安心運動。</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="soft" id="policy">
+  <div class="container">
+    <div class="section-head"><span class="eyebrow">CLEAR & FAIR</span><h2>加入之前，規則先說清楚</h2><p>以下為網站資訊展示範例。正式營運時，請依實際合約、適用法規及主管機關規定更新。</p></div>
+    <div class="policy-grid">
+      <article class="policy"><h3>📄 會員合約與付款</h3><ul><li>簽約前提供完整合約與費用明細。</li><li>清楚標示月繳、年繳及各方案服務範圍。</li><li>確認會籍起訖日、暫停會籍條件與適用費用。</li><li>保留收據、付款紀錄及合約副本。</li></ul></article>
+      <article class="policy"><h3>🔄 終止與退費</h3><ul><li>依正式合約及適用法規辦理終止與退費。</li><li>說明申請方式、所需文件與處理時程。</li><li>不以口頭承諾取代書面條款。</li><li>如有疑問，可先聯絡客服確認流程。</li></ul></article>
+    </div>
+    <div class="faq">
+      <details><summary>沒有健身經驗，可以加入嗎？</summary><p>可以。建議先預約體驗，讓工作人員了解你的需求並介紹基本器材使用方式。</p></details>
+      <details><summary>預約體驗需要先付費嗎？</summary><p>本網站範例設定為免費諮詢；實際體驗是否收費、時間與限制，請以場館正式公告為準。</p></details>
+      <details><summary>如果想取消會員或申請退費，該怎麼辦？</summary><p>請先聯絡客服並確認你的合約條款，再依合約與適用法規提出申請。實際退費金額與時程需依個案確認。</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="container">
+    <span class="eyebrow">READY WHEN YOU ARE</span>
+    <h2>下一個更有活力的自己，從今天開始</h2>
+    <p>先來認識環境、聊聊你的目標，再決定適合自己的訓練方式。</p>
+    <button class="btn btn-primary" data-book>預約首次體驗　→</button>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container footer-row">
+    <div><strong>🌊 藍波健身房 BLUE WAVE FITNESS</strong><br><span>讓運動成為生活的好習慣。</span></div>
+    <div>地址：請填入實際地址　｜　電話：請填入聯絡電話<br>營業時間：請填入實際營業時間</div>
+    <div>© 2026 藍波健身房｜網站示範版</div>
+  </div>
+</footer>
+
+<div class="modal-backdrop" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <div class="modal-head"><h2 id="modalTitle">預約首次體驗</h2><button class="close" id="closeModal" aria-label="關閉">×</button></div>
+    <p>填寫以下資料，讓我們了解你的需求。（此為前端示範表單，不會真的傳送資料。）</p>
+    <form id="bookingForm">
+      <label>姓名<input name="name" required placeholder="請輸入姓名"></label>
+      <label>聯絡電話或 Email<input name="contact" required placeholder="方便聯絡你的方式"></label>
+      <label>想了解的方案<select name="plan" id="planSelect"><option>首次體驗／免費諮詢</option><option>月繳會員</option><option>私人教練課</option><option>年繳會員</option></select></label>
+      <label>方便時段<select name="time"><option>平日早上</option><option>平日下午</option><option>平日晚上</option><option>週末</option></select></label>
+      <label>訓練目標<textarea name="goal" rows="3" placeholder="例如：初次接觸健身、增加肌力、改善體能"></textarea></label>
+      <button class="btn btn-primary" type="submit">確認填寫</button>
+      <p class="form-note">提醒：本示範不會儲存或寄送個人資料。正式網站需串接安全的表單服務。</p>
+      <p id="formMessage">表單示範完成！正式營運時，請連接預約系統以接收資料。</p>
+    </form>
+  </div>
+</div>
+
+<script>
+const menuToggle = document.getElementById('menuToggle');
+const mainNav = document.getElementById('mainNav');
+menuToggle.addEventListener('click', () => mainNav.classList.toggle('open'));
+mainNav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => mainNav.classList.remove('open')));
+
+const modal = document.getElementById('bookingModal');
+const planSelect = document.getElementById('planSelect');
+function openBooking(plan) {
+  if (plan) planSelect.value = plan;
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeBooking() {
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.querySelectorAll('[data-book]').forEach(button => {
+  button.addEventListener('click', () => openBooking(button.dataset.plan || '首次體驗／免費諮詢'));
+});
+document.getElementById('closeModal').addEventListener('click', closeBooking);
+modal.addEventListener('click', event => { if (event.target === modal) closeBooking(); });
+document.addEventListener('keydown', event => { if (event.key === 'Escape') closeBooking(); });
+document.getElementById('bookingForm').addEventListener('submit', event => {
+  event.preventDefault();
+  document.getElementById('formMessage').style.display = 'block';
+});
+</script>
+</body>
+</html>
